@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
-{% block title %} {{ data.header }} - Random blog {% endblock %}
+{% block title %}{{ data.header }}{% endblock %}
 
 {% block blog_title %}
 <!-- header -->
@@ -13,19 +13,13 @@
     </div>
 {% endblock  blog_title %}
 
-{% block content %}
-    <!-- post column -->
-    <div class="col-sm-8">
-      <p class="blog-post-content">{{ data.content }}</p>
-    </div>
-{% endblock content %}
+{% block main %}
+     <p class="blog-post-content">{{ data.content }}</p>
+{% endblock main %}
 
 {% block sidebar %}
-    <!-- sidebar column -->
-    <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-      <div class="sidebar-module sidebar-module-inset">
+    <div class="sidebar-module sidebar-module-inset">
         <h4>Also</h4>
         <p><a href="{{ url_for('view.soon') }}">Other posts</a></p>
-      </div>
     </div>
 {% endblock  sidebar %}

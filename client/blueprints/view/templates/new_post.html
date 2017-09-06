@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block title %}New post{% endblock %}
+
+{% block blog_title %}
+    <div class="blog-header">
+        <h1 class="blog-title">Create post</h1>
+    </div>
+{% endblock blog_title %}
+
+{% block content %}
+    <form action="{{ url_for('view.new_post') }}" method="POST">
+        <div class="row">
+            <div class="col-sm-7">
+                <div class="form-group">
+                    <textarea class="form-control" rows="15" name="content" placeholder="Content..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-default">Create</button>
+            </div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label for="header">Header</label>
+                    <input type="text" class="form-control" name="header" placeholder="Header..." required>
+                </div>
+                <div class="form-group">
+                    <label for="author">Author</label>
+                    <input type="text" class="form-control" name="author" placeholder="Author..." required>
+                </div>
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select class="form-control" name="category" required placeholder="Category...">
+                        {% for category in data.categories %}
+                            <option value="{{ category.id }}">{{ category.category }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+
+        </div>
+    </form>
+{% endblock content %}

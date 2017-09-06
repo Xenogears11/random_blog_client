@@ -1,4 +1,5 @@
-from requests import get
+from requests import get, post
+import sys
 
 class Blog():
     api_url = None
@@ -30,3 +31,25 @@ class Blog():
             return data.json()
         except:
             pass
+
+    def get_categories(self):
+        try:
+            data = get('{url}/categories'.format(url = self.api_url))
+            return data.json()
+        except:
+            pass
+
+    def new_post(self, header, content, author, categories):
+        data = {
+            'header' : header,
+            'content' : content,
+            'author' : author,
+            'categories' : [categories]
+        }
+        try:
+            r = post('{url}/posts'.format(url = self.api_url), data = data)
+            j = r.json()
+            print(j['id'])
+            return j['id']
+        except:
+            print(sys.exc_info()[0])
