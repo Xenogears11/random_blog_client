@@ -14,7 +14,11 @@
 {% endblock  blog_title %}
 
 {% block main %}
-     <p class="blog-post-content">{{ data.content }}</p>
+<p class="blog-post-content">
+    {% for line in data.content.splitlines() %}
+        {{ line }}<br>
+    {% endfor %}
+</p>
 {% endblock main %}
 
 {% block sidebar %}

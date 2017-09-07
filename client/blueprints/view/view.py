@@ -37,6 +37,7 @@ def new_post():
                    request.form['category'])
             return redirect(url_for('view.post', id = data))
         except:
+            abort(400)
 
 
 @view.route('/home')

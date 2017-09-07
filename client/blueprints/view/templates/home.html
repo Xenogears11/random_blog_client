@@ -21,7 +21,11 @@
                 {% for category in post.categories %}
                 <bdi class="blog-post-category">{{ category }}</bdi>
                 {% endfor %}
-                <p class="blog-post-content">{{ post.content }}</p>
+                <p class="blog-post-content">
+                    {% for line in post.content.splitlines() %}
+                        {{ line }}<br>
+                    {% endfor %}
+                </p>
             </div>
             <hr>
     {% endfor %}
