@@ -1,4 +1,4 @@
-from requests import get, post
+from requests import get, post, delete, put, codes
 import sys
 
 class Blog():
@@ -51,5 +51,26 @@ class Blog():
             j = r.json()
             print(j['id'])
             return j['id']
+        except:
+            return None
+
+    def delete_post(self, post_id):
+        try:
+            response = delete('{url}/posts/{id}'.format(url = self.api_url, id = post_id))
+            if response.status_code == codes.ok:
+                return True
+            else:
+                return False
+        except:
+            return False
+
+    def restore_post(self, post_id):
+        try:
+            response = put('{url}/posts/{id}/restore'.format(url = self.api_url, id = post_id))
+            print(response.status_code)
+            if response.status_code == codes.ok:
+                return post_id
+            else:
+                return None
         except:
             return None

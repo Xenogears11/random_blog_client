@@ -1,0 +1,9 @@
+{% extends 'modules/simple_page.html' %}
+
+{% block title %}Deleted{% endblock %}
+
+{% block header_text %}Deleted!{% endblock %}
+
+{% block content_text %}
+    <p>Did it by mistake? You can <a href="{{ url_for('view.restore_post', id = id) }}">restore it</a>.</p>
+{% endblock content_text %}

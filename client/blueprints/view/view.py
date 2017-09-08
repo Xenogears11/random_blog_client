@@ -18,6 +18,32 @@ def post(id):
     except:
         abort(404)
 
+@view.route('/post/<int:id>/delete')
+def delete_post(id):
+    response = blog.delete_post(id)
+
+    if response:
+        try:
+            return render_template('pages/post_deleted.html', id = id)
+        except:
+            abort(404)
+
+    else:
+        abort(404)
+
+@view.route('/post/<int:id>/restore')
+def restore_post(id):
+    post_id = blog.restore_post(id)
+
+    if post_id != None:
+        try:
+            return redirect(url_for('view.post', id = post_id))
+        except:
+            abort(404)
+
+    else:
+        abort(404)
+
 @view.route('/post/new', methods=['POST', 'GET'])
 def new_post():
     data = None
@@ -30,12 +56,12 @@ def new_post():
 
     else:
         try:
-            data = blog.new_post(
+            post_id = blog.new_post(
                    request.form['header'],
                    request.form['content'],
                    request.form['author'],
                    request.form['category'])
-            return redirect(url_for('view.post', id = data))
+            return redirect(url_for('view.post', id = post_id))
         except:
             abort(400)
 
