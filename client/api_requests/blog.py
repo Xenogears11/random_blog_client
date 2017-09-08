@@ -11,23 +11,23 @@ class Blog():
 
             self.api_url = line.rstrip()
 
-    def get_post(self, post_id):
+    def get_post(self, id):
         try:
-            data = get('{url}/posts/{id}'.format(url = self.api_url, id = post_id))
+            data = get('{url}/posts/{id}'.format(url = self.api_url, id = id))
             return data.json()
         except:
             return None
 
     def get_home(self):
         try:
-            data = get('{url}/all'.format(url = self.api_url))
+            data = get('{url}/blog/home'.format(url = self.api_url))
             return data.json()
         except:
             return None
 
-    def get_category(self, category_id):
+    def get_category(self, id):
         try:
-            data = get('{url}/all/{id}'.format(url = self.api_url, id = category_id))
+            data = get('{url}/blog/category/{id}'.format(url = self.api_url, id = id))
             return data.json()
         except:
             return None
@@ -39,6 +39,13 @@ class Blog():
         except:
             return None
 
+    def get_edit_page(self, id):
+        try:
+            data = get('{url}/blog/edit_post/{id}'.format(url = self.api_url, id = id))
+            return data.json()
+        except:
+            return None
+
     def new_post(self, header, content, author, categories):
         data = {
             'header' : header,
@@ -46,31 +53,52 @@ class Blog():
             'author' : author,
             'categories' : [categories]
         }
+
         try:
             r = post('{url}/posts'.format(url = self.api_url), data = data)
             j = r.json()
-            print(j['id'])
             return j['id']
         except:
             return None
 
-    def delete_post(self, post_id):
+    def delete_post(self, id):
         try:
-            response = delete('{url}/posts/{id}'.format(url = self.api_url, id = post_id))
+            response = delete('{url}/posts/{id}'.format(url = self.api_url, id = id))
+
             if response.status_code == codes.ok:
                 return True
             else:
                 return False
+
         except:
             return False
 
-    def restore_post(self, post_id):
+    def edit_post(self, id, header, content, author, categories):
+        data = {
+            'header' : header,
+            'content' : content,
+            'author' : author,
+            'categories' : [categories]
+        }
         try:
-            response = put('{url}/posts/{id}/restore'.format(url = self.api_url, id = post_id))
-            print(response.status_code)
+            response = put('{url}/posts/{id}'.format(url = self.api_url, id = id), data = data)
+
             if response.status_code == codes.ok:
-                return post_id
+                return id
             else:
                 return None
+
+        except:
+            return None
+
+    def restore_post(self, id):
+        try:
+            response = put('{url}/posts/{id}/restore'.format(url = self.api_url, id = id))
+
+            if response.status_code == codes.ok:
+                return id
+            else:
+                return None
+
         except:
             return None

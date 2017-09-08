@@ -10,6 +10,35 @@ blog = Blog('api_url.txt')
 def main():
     return redirect(url_for('view.home'))
 
+@view.route('/home')
+def home():
+    data = blog.get_home()
+    try:
+        return render_template('pages/home.html', data = data)
+    except:
+        abort(404)
+
+@view.route('/post/new', methods=['POST', 'GET'])
+def new_post():
+    data = None
+    if request.method == 'GET':
+        data = blog.get_categories()
+        try:
+            return render_template('pages/new_post.html', data = data)
+        except:
+            abort(404)
+
+    else:
+        try:
+            post_id = blog.new_post(
+                      request.form['header'],
+                      request.form['content'],
+                      request.form['author'],
+                      request.form['category'])
+            return redirect(url_for('view.post', id = post_id))
+        except:
+            abort(400)
+
 @view.route('/post/<int:id>')
 def post(id):
     data = blog.get_post(id)
@@ -17,6 +46,26 @@ def post(id):
         return render_template('pages/post.html', data = data)
     except:
         abort(404)
+
+@view.route('/post/<int:id>/edit', methods=['GET', 'POST'])
+def edit_post(id):
+    if request.method == 'GET':
+        data = blog.get_edit_page(id)
+        try:
+            return render_template('pages/edit_post.html', data = data)
+        except:
+            abort(404)
+
+    else:
+        id = blog.edit_post(id,
+             request.form['header'],
+             request.form['content'],
+             request.form['author'],
+             request.form['category'])
+        try:
+            return redirect(url_for('view.post', id = id))
+        except:
+            abort(404)
 
 @view.route('/post/<int:id>/delete')
 def delete_post(id):
@@ -34,45 +83,14 @@ def delete_post(id):
 @view.route('/post/<int:id>/restore')
 def restore_post(id):
     post_id = blog.restore_post(id)
-
     if post_id != None:
         try:
             return redirect(url_for('view.post', id = post_id))
         except:
-            abort(404)
+            return abort(404)
 
     else:
-        abort(404)
-
-@view.route('/post/new', methods=['POST', 'GET'])
-def new_post():
-    data = None
-    if request.method == 'GET':
-        data = blog.get_categories()
-        try:
-            return render_template('pages/new_post.html', data = data)
-        except:
-            abort(404)
-
-    else:
-        try:
-            post_id = blog.new_post(
-                   request.form['header'],
-                   request.form['content'],
-                   request.form['author'],
-                   request.form['category'])
-            return redirect(url_for('view.post', id = post_id))
-        except:
-            abort(400)
-
-
-@view.route('/home')
-def home():
-    data = blog.get_home()
-    try:
-        return render_template('pages/home.html', data = data)
-    except:
-        abort(404)
+        return abort(404)
 
 @view.route('/category/<int:id>')
 def category(id):
