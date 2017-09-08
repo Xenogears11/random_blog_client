@@ -19,6 +19,10 @@
         {{ line }}<br>
     {% endfor %}
 </p>
+{% if data.modification_date != None %}
+    <br>
+    <p class="blog-post-meta">last updated {{ data.modification_date }}</p>
+{% endif %}
 {% endblock main %}
 
 {% block sidebar %}
