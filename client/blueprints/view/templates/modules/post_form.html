@@ -1,0 +1,41 @@
+{% macro show_post_form(data, empty = False) -%}
+    <div class="row">
+        <div class="col-sm-7">
+            <div class="form-group">
+                <textarea class="form-control" rows="15" name="content" placeholder="Content..." required>
+                    {%- if not empty %}
+                        {{- data.post.content -}}
+                    {% endif -%}
+                </textarea>
+            </div>
+            <button type="submit" class="btn btn-default">
+                {%- if empty %}Create{% else %}Edit{% endif -%}
+            </button>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label for="header">Header</label>
+                <input type="text"
+                {% if not empty %}value="{{ data.post.header|default('') }}"{% endif %}
+                class="form-control" name="header" placeholder="Header..." required>
+            </div>
+            <div class="form-group">
+                <label for="author">Author</label>
+                <input type="text"
+                {% if not empty %}value="{{ data.post.author|default('') }}"{% endif %}
+                class="form-control" name="author" placeholder="Author..." required>
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select class="form-control" name="category" required placeholder="Category...">
+                    {% for category in data.categories %}
+                        <option value="{{ category.id|default('') }}"
+                        {% if not empty and data.post.categories[0] == category.category %}selected{% endif %}>
+                            {{- category.category -}}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+{%- endmacro %}

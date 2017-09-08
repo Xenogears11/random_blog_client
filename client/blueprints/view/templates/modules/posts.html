@@ -1,0 +1,20 @@
+{% macro show_posts(posts) -%}
+    {% if not posts %}
+        <p class=blog-post-title h2>Nothing here :/</p>
+    {% endif %}
+    {% for post in posts %}
+            <div class="blog-post">
+                <a class="blog-post-title h2" href="{{ url_for('view.post', id = post.id) }}">{{ post.header }}</a>
+                <p class="blog-post-meta">{{ post.creation_date }} by {{ post.author }}</p>
+                {% for category in post.categories %}
+                <bdi class="blog-post-category">{{ category }}</bdi>
+                {% endfor %}
+                <p class="blog-post-content">
+                    {% for line in post.content.splitlines() %}
+                        {{ line }}<br>
+                    {% endfor %}
+                </p>
+            </div>
+            <hr>
+    {% endfor %}
+{%- endmacro %}

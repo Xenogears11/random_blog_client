@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ url_for('static', filename = 'blog.css') }}">
+        <link rel="shortcut icon" href="{{ url_for('static', filename = 'favicon.ico') }}">
+        <title>{% block title %}Random blog{% endblock %}</title>
+    </head>
+    <body>
+        {% block menu %}
+            <div class="blog-masthead">
+                <div class="container">
+                    <nav class="blog-nav">
+                        <a class="blog-nav-item" href="{{ url_for('view.home') }}">Home</a>
+                        <a class="blog-nav-item" href="{{ url_for('view.new_post') }}">New post</a>
+                        <a class="blog-nav-item" href="{{ url_for('view.categories') }}">Categories</a>
+                        <a class="blog-nav-item" href="{{ url_for('view.about') }}">About</a>
+                    </nav>
+                </div>
+            </div>
+        {% endblock menu %}
+        <div class="container">
+            {% block header %}{% endblock %}
+            {% block content %}
+                <div class="row">
+                    <div class="col-sm-7 blog-main">
+                        {% block main %}{% endblock %}
+                    </div>
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-3 blog-sidebar">
+                        {% block sidebar %}{% endblock %}
+                    </div>
+                </div>
+            {% endblock content %}
+        </div>
+        <footer class="blog-footer">
+            {% block footer %}
+                <p>The end</p>
+            {% endblock footer %}
+        </footer>
+    </body>
+</html>
