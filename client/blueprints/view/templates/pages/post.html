@@ -1,8 +1,8 @@
-{% extends "layout.html" %}
+{% extends 'modules/base.html' %}
 
 {% block title %}{{ data.header }}{% endblock %}
 
-{% block blog_title %}
+{% block header %}
 <!-- header -->
     <div class="blog-header">
       <h1 class="blog-title">{{ data.header }}</h1>
@@ -11,7 +11,7 @@
         <bdi class="blog-post-category">{{ category }}</bdi>
       {% endfor %}
     </div>
-{% endblock  blog_title %}
+{% endblock  header %}
 
 {% block main %}
 <p class="blog-post-content">

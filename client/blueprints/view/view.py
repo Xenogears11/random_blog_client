@@ -14,8 +14,8 @@ def main():
 def post(id):
     data = blog.get_post(id)
     try:
-        return render_template('post.html', data = data)
-    except TemplateNotFound:
+        return render_template('pages/post.html', data = data)
+    except:
         abort(404)
 
 @view.route('/post/new', methods=['POST', 'GET'])
@@ -24,8 +24,8 @@ def new_post():
     if request.method == 'GET':
         data = blog.get_categories()
         try:
-            return render_template('new_post.html', data = data)
-        except TemplateNotFound:
+            return render_template('pages/new_post.html', data = data)
+        except:
             abort(404)
 
     else:
@@ -44,43 +44,43 @@ def new_post():
 def home():
     data = blog.get_home()
     try:
-        return render_template('home.html', data = data)
-    except TemplateNotFound:
+        return render_template('pages/home.html', data = data)
+    except:
         abort(404)
 
 @view.route('/category/<int:id>')
 def category(id):
     data = blog.get_category(id)
     try:
-        return render_template('category.html', data = data)
-    except TemplateNotFound:
+        return render_template('pages/category.html', data = data)
+    except:
         abort(404)
 
 @view.route('/categories')
 def categories():
     try:
         return redirect(url_for('view.soon'))
-    except TemplateNotFound:
+    except:
         abort(404)
 
 @view.route('/about')
 def about():
     try:
-        return render_template('about.html')
-    except TemplateNotFound:
+        return render_template('pages/about.html')
+    except:
         abort(404)
 
 @view.route('/soon')
 def soon():
     try:
-        return render_template('soon.html')
-    except TemplateNotFound:
+        return render_template('pages/soon.html')
+    except:
         abort(404)
 
 @view.route('/memes')
 def memes():
-    return render_template('memes.html')
+    return render_template('pages/memes.html')
 
 @view.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html')
+    return render_template('error_pages/404.html')

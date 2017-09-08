@@ -16,28 +16,28 @@ class Blog():
             data = get('{url}/posts/{id}'.format(url = self.api_url, id = post_id))
             return data.json()
         except:
-            pass
+            return None
 
     def get_home(self):
         try:
             data = get('{url}/all'.format(url = self.api_url))
             return data.json()
         except:
-            pass
+            return None
 
     def get_category(self, category_id):
         try:
             data = get('{url}/all/{id}'.format(url = self.api_url, id = category_id))
             return data.json()
         except:
-            pass
+            return None
 
     def get_categories(self):
         try:
             data = get('{url}/categories'.format(url = self.api_url))
             return data.json()
         except:
-            pass
+            return None
 
     def new_post(self, header, content, author, categories):
         data = {
@@ -52,4 +52,4 @@ class Blog():
             print(j['id'])
             return j['id']
         except:
-            print(sys.exc_info()[0])
+            return None

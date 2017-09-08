@@ -1,12 +1,12 @@
-{% extends "layout.html" %}
+{% extends 'modules/base.html' %}
 
 {% block title %}New post{% endblock %}
 
-{% block blog_title %}
+{% block header %}
     <div class="blog-header">
         <h1 class="blog-title">Create post</h1>
     </div>
-{% endblock blog_title %}
+{% endblock header %}
 
 {% block content %}
     <form action="{{ url_for('view.new_post') }}" method="POST">
@@ -35,9 +35,6 @@
                     </select>
                 </div>
             </div>
-        </div>
-        <div class="row justify-content-center">
-
         </div>
     </form>
 {% endblock content %}
