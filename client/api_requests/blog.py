@@ -18,9 +18,13 @@ class Blog():
         except:
             return None
 
-    def get_home(self):
+    def get_home(self, quantity, from_id = None):
         try:
-            data = get('{url}/blog/home'.format(url = self.api_url))
+            req = {
+            'quantity':quantity,
+            'from_id':from_id
+            }
+            data = get('{url}/blog/home'.format(url = self.api_url), data = req)
             return data.json()
         except:
             return None

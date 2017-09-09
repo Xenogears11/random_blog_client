@@ -12,7 +12,9 @@ def main():
 
 @view.route('/home')
 def home():
-    data = blog.get_home()
+    quantity = 3
+    from_id = request.args.get('from_id')
+    data = blog.get_home(quantity, from_id)
     try:
         return render_template('pages/home.html', data = data)
     except:
