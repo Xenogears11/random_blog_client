@@ -11,7 +11,7 @@
 
 {% block main %}
     {% from 'modules/posts.html' import show_posts %}
-    {{ show_posts(data.posts) }}
+    {{ show_posts(data.posts, data.first_last_posts) }}
 {% endblock main %}
 
 {% block sidebar %}

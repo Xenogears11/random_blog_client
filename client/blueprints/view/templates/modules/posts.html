@@ -1,4 +1,4 @@
-{% macro show_posts(posts) -%}
+{% macro show_posts(posts, first_last_posts) -%}
     {% if not posts %}
         <p class=blog-post-title h2>Nothing here :/</p>
     {% endif %}
@@ -17,4 +17,18 @@
             </div>
             <hr>
     {% endfor %}
+    <bdi>
+        <a
+        {% if first_last_posts.last_id != posts[0].id %}
+            href="{{ url_for(request.endpoint, from_id=posts[0].id + 1, previous=True, id=request.view_args['id']) }}"
+        {% endif %}>
+            previous
+        </a> |
+        <a
+        {% if first_last_posts.first_id != posts[-1].id %}
+            href="{{ url_for(request.endpoint, from_id=posts[-1].id - 1, id=request.view_args['id']) }}"
+        {% endif %}>
+            next
+        </a>
+    </bdi>
 {%- endmacro %}

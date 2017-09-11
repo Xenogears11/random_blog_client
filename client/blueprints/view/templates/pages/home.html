@@ -11,8 +11,7 @@
 
 {% block main %}
     {% from 'modules/posts.html' import show_posts %}
-    {{ show_posts(data.posts) }}
-    <a href="{{ url_for('view.home', from_id=data.posts[-1].id - 1) }}">next</a>
+    {{ show_posts(data.posts, data.first_last_posts) }}
 {% endblock main %}
 
 {% block sidebar %}
