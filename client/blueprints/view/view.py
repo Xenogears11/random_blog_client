@@ -14,7 +14,8 @@ def main():
 def home():
     quantity = 3
     from_id = request.args.get('from_id')
-    data = blog.get_home(quantity, from_id)
+    previous = request.args.get('previous')
+    data = blog.get_home(quantity, from_id, previous)
     try:
         return render_template('pages/home.html', data = data)
     except:
@@ -96,11 +97,15 @@ def restore_post(id):
 
 @view.route('/category/<int:id>')
 def category(id):
-    data = blog.get_category(id)
-    try:
-        return render_template('pages/category.html', data = data)
-    except:
-        abort(404)
+    quantity = 3
+    from_id = request.args.get('from_id')
+    previous = request.args.get('previous')
+
+    data = blog.get_category(id, quantity, from_id, previous)
+    #try:
+    return render_template('pages/category.html', data = data)
+    #except:
+        #abort(404)
 
 @view.route('/categories')
 def categories():
