@@ -10,12 +10,12 @@
                 <bdi class="blog-post-category">{{ category }}</bdi>
                 {% endfor %}
                 <p class="blog-post-content">
-                    {% for line in post.content.splitlines() %}
+                    {%- for line in post.content.splitlines() -%}
                         {{ line }}<br>
-                    {% endfor %}
+                    {%- endfor %}
                 </p>
             </div>
-            <hr>
+            <hr><br>
     {% endfor %}
     <bdi>
         <a

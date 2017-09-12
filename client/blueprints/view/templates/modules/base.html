@@ -8,36 +8,36 @@
         <title>{% block title %}Random blog{% endblock %}</title>
     </head>
     <body>
-        {% block menu %}
-            <div class="blog-masthead">
+            {% block menu %}
+                <div class="blog-masthead">
+                    <div class="container">
+                        <nav class="blog-nav">
+                            <a class="blog-nav-item" href="{{ url_for('view.home') }}">Home</a>
+                            <a class="blog-nav-item" href="{{ url_for('view.new_post') }}">New post</a>
+                            <a class="blog-nav-item" href="{{ url_for('view.categories') }}">Categories</a>
+                            <a class="blog-nav-item" href="{{ url_for('view.about') }}">About</a>
+                        </nav>
+                    </div>
+                </div>
+            {% endblock menu %}
+            <div class="blog-header">
                 <div class="container">
-                    <nav class="blog-nav">
-                        <a class="blog-nav-item" href="{{ url_for('view.home') }}">Home</a>
-                        <a class="blog-nav-item" href="{{ url_for('view.new_post') }}">New post</a>
-                        <a class="blog-nav-item" href="{{ url_for('view.categories') }}">Categories</a>
-                        <a class="blog-nav-item" href="{{ url_for('view.about') }}">About</a>
-                    </nav>
+                    {% block header %}{% endblock %}
                 </div>
             </div>
-        {% endblock menu %}
-        <div class="blog-header">
             <div class="container">
-                {% block header %}{% endblock %}
+                {% block content %}
+                    <div class="row">
+                        <div class="col-sm-7 blog-main">
+                            {% block main %}{% endblock %}
+                        </div>
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-3 blog-sidebar">
+                            {% block sidebar %}{% endblock %}
+                        </div>
+                    </div>
+                {% endblock content %}
             </div>
-        </div>
-        <div class="container">
-            {% block content %}
-                <div class="row">
-                    <div class="col-sm-7 blog-main">
-                        {% block main %}{% endblock %}
-                    </div>
-                    <div class="col-sm-1"></div>
-                    <div class="col-sm-3 blog-sidebar">
-                        {% block sidebar %}{% endblock %}
-                    </div>
-                </div>
-            {% endblock content %}
-        </div>
         <footer class="blog-footer">
             {% block footer %}
                 <p>The end</p>
