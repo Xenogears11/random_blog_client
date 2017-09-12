@@ -3,14 +3,11 @@
 {% block title %}{{ data.header }}{% endblock %}
 
 {% block header %}
-<!-- header -->
-    <div class="blog-header">
-      <h1 class="blog-title">{{ data.header }}</h1>
-      <p class="blog-post-meta">{{ data.creation_date }} by {{ data.author }}</p>
-      {% for category in data.categories %}
-        <bdi class="blog-post-category">{{ category }}</bdi>
-      {% endfor %}
-    </div>
+    <h1 class="blog-title">{{ data.header }}</h1>
+    <p class="blog-post-meta">{{ data.creation_date }} by {{ data.author }}</p>
+        {% for category in data.categories %}
+            <bdi class="blog-post-category">{{ category }}</bdi>
+        {% endfor %}
 {% endblock  header %}
 
 {% block main %}

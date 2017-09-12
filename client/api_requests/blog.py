@@ -18,13 +18,13 @@ class Blog():
         except:
             return None
 
-    def get_home(self, quantity, from_id = None, previous = None):
+    def get_home(self, quantity, from_id = None, newer = None):
         req = {
             'quantity':quantity,
             'from_id':from_id
         }
-        if previous != None:
-            req['previous'] = 'true'
+        if newer != None:
+            req['newer'] = 'true'
 
         try:
             data = get('{url}/blog/home'.format(url = self.api_url), data = req)
@@ -32,13 +32,13 @@ class Blog():
         except:
             return None
 
-    def get_category(self, id, quantity, from_id = None, previous = None):
+    def get_category(self, id, quantity, from_id = None, newer = None):
         req = {
             'quantity':quantity,
             'from_id':from_id
         }
-        if previous != None:
-            req['previous'] = 'true'
+        if newer != None:
+            req['newer'] = 'true'
 
         try:
             data = get('{url}/blog/category/{id}'.format(url = self.api_url, id = id), data = req)

@@ -14,8 +14,8 @@ def main():
 def home():
     quantity = 3
     from_id = request.args.get('from_id')
-    previous = request.args.get('previous')
-    data = blog.get_home(quantity, from_id, previous)
+    newer = request.args.get('newer')
+    data = blog.get_home(quantity, from_id, newer)
     try:
         return render_template('pages/home.html', data = data)
     except:
@@ -99,9 +99,9 @@ def restore_post(id):
 def category(id):
     quantity = 3
     from_id = request.args.get('from_id')
-    previous = request.args.get('previous')
+    newer = request.args.get('newer')
 
-    data = blog.get_category(id, quantity, from_id, previous)
+    data = blog.get_category(id, quantity, from_id, newer)
     #try:
     return render_template('pages/category.html', data = data)
     #except:
