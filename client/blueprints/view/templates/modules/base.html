@@ -20,8 +20,12 @@
                 </div>
             </div>
         {% endblock menu %}
+        <div class="blog-header">
+            <div class="container">
+                {% block header %}{% endblock %}
+            </div>
+        </div>
         <div class="container">
-            {% block header %}{% endblock %}
             {% block content %}
                 <div class="row">
                     <div class="col-sm-7 blog-main">
