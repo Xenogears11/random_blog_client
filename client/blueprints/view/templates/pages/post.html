@@ -2,32 +2,47 @@
 
 {% block title %}{{ data.header }}{% endblock %}
 
-{% block header %}
-    <h1 class="blog-title">{{ data.header }}</h1>
-    <p class="blog-post-meta">{{ data.creation_date }} by {{ data.author }}</p>
-        {% for category in data.categories %}
-            <bdi class="blog-post-category">{{ category }}</bdi>
+{%- block header %}
+    <div class="blog-title">
+        <h1 class="display-3">{{ data.header }}</h1>
+        <p class="blog-post-meta">{{ data.creation_date }} by {{ data.author }}</p>
+
+        {# Show categories #}
+        {%- for category in data.categories %}
+            <span class="badge badge-primary">{{ category }}</span>
         {% endfor %}
-{% endblock  header %}
-
-{% block main %}
-<p class="blog-post-content">
-    {% for line in data.content.splitlines() %}
-        {{ line }}<br>
-    {% endfor %}
-</p>
-{% if data.modification_date != None %}
-    <br>
-    <p class="blog-post-meta">last updated {{ data.modification_date }}</p>
-{% endif %}
-{% endblock main %}
-
-{% block sidebar %}
-    <div class="sidebar-module sidebar-module-inset">
-        <h4>Also</h4>
-        <p>
-        <a href="{{ url_for('view.edit_post', id = data.id) }}">Edit</a><br>
-        <a href="{{ request.path }}/delete">Delete</a>
-        </p>
     </div>
-{% endblock  sidebar %}
+{% endblock  header -%}
+
+{%- block main %}
+    <div class="blog-post">
+        <p class="card-text blog-post-content">
+            {# Show post content #}
+            {%- for line in data.content.splitlines() -%}
+                {{ line }}<br>
+            {%- endfor -%}
+        </p>
+
+        {# Show last updated... #}
+        {%- if data.modification_date != None %}
+            <p class="blog-post-meta">last updated {{ data.modification_date }}</p>
+        {% endif %}
+    </div>
+{% endblock main -%}
+
+{%- block sidebar %}
+    <div class="card card-body blog-sidebar-module-main">
+        <!-- Control buttons -->
+        <h4 class="card-header">Options</h4>
+        <ul class="list-unstyled">
+            <li>
+                <a class="btn btn-outline-primary blog-sidebar-btn" role="button"
+                href="{{ url_for('view.edit_post', id = data.id) }}">Edit</a>
+            </li>
+            <li>
+                <a class="btn btn-outline-danger blog-sidebar-btn" role="button"
+                href="{{ request.path }}/delete">Delete</a>
+            </li>
+        </ul>
+    </div>
+{% endblock sidebar -%}

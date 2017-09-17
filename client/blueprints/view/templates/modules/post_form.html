@@ -1,41 +1,84 @@
 {% macro show_post_form(data, empty = False) -%}
-    <div class="row">
-        <div class="col-sm-7">
-            <div class="form-group">
-                <textarea class="form-control" rows="15" name="content" placeholder="Content..." required>
-                    {%- if not empty %}
-                        {{- data.post.content -}}
-                    {% endif -%}
-                </textarea>
+
+<div class="row blog-post-form">
+                <!-- Main -->
+                <div class="col-md-7">
+                    <fieldset class="form-group">
+                        <!-- Post content -->
+                        <label class="mr-sm-2 mb-0 sr-only" for="content">Content</label>
+                        <textarea class="form-control" rows="15" name="content"
+                        placeholder="Type your post here..." required>
+                        {%- if not empty %}
+                            {{- data.post.content -}}
+                        {% endif -%}
+                        </textarea>
+                    </fieldset>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-md-3">
+
+                    <fieldset class="form-group">
+                        <!-- Header -->
+                        <label class="mr-sm-2 mb-0 sr-only" for="header">Header</label>
+                        <input type="text"
+                        {% if not empty %}value="{{ data.post.header|default('') }}"{% endif %}
+                        class="form-control" name="header"
+                        placeholder="Header" required>
+                    </fieldset>
+
+                    <fieldset class="form-group">
+                        <!-- Author -->
+                        <label class="mr-sm-2 mb-0 sr-only" for="author">Author</label>
+                        <input type="text"
+                        {% if not empty %}value="{{ data.post.author|default('') }}"{% endif %}
+                        class="form-control" name="author"
+                        placeholder="Author" required>
+                    </fieldset>
+
+                    <!-- Categories button -->
+                    <button class="form-control dropdown-toggle blog-btn-dropdown collapsed"
+                    type="button" data-toggle="collapse" data-target="#categories"
+                    aria-expanded="false" aria-controls="footwear">
+                        Categories
+                    </button>
+
+                    <!-- List of categories -->
+                    <div class="collapse text-center" id="categories">
+                        <fieldset class="btn-group-vertical blog-collapse" data-toggle="buttons">
+                            {% for category in data.categories -%}
+
+                                {# Check if selected by default #}
+                                {%- set selected = False %}
+                                {% if not empty and category.category in data.post.categories -%}
+                                    {% set selected = True %}
+                                {% endif %}
+
+                                <label class="btn btn-outline-primary blog-btn-category
+                                {# Select active category #}
+                                {% if selected -%}active{%- endif %}">
+                                    <input type="checkbox" autocomplete="off"
+                                    value="{{ category.id }}" name="categories"
+                                    {% if selected -%}checked{%- endif %}>
+                                    {{- category.category -}}
+                                </label>
+                            {% endfor %}
+                        </fieldset>
+                    </div>
+                </div>
             </div>
-            <button type="submit" class="btn btn-default">
-                {%- if empty %}Create{% else %}Edit{% endif -%}
-            </button>
-        </div>
-        <div class="col-sm-3">
-            <div class="form-group">
-                <label for="header">Header</label>
-                <input type="text"
-                {% if not empty %}value="{{ data.post.header|default('') }}"{% endif %}
-                class="form-control" name="header" placeholder="Header..." required>
+
+            <!-- Submit button -->
+            <div class="row">
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-outline-success btn-lg btn-block blog-btn">
+                        {%- if empty -%}
+                            Create
+                        {%- else -%}
+                            Edit
+                        {%- endif -%}
+                    </button>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="author">Author</label>
-                <input type="text"
-                {% if not empty %}value="{{ data.post.author|default('') }}"{% endif %}
-                class="form-control" name="author" placeholder="Author..." required>
-            </div>
-            <div class="form-group">
-                <label for="category">Category</label>
-                <select class="form-control" name="category" required placeholder="Category...">
-                    {% for category in data.categories %}
-                        <option value="{{ category.id|default('') }}"
-                        {% if not empty and data.post.categories[0] == category.category %}selected{% endif %}>
-                            {{- category.category -}}
-                        </option>
-                    {% endfor %}
-                </select>
-            </div>
-        </div>
-    </div>
+
 {%- endmacro %}

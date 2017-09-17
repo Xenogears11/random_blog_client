@@ -1,34 +1,56 @@
 {% macro show_posts(posts, first_last_posts) -%}
+
+    {# Placeholder if no posts returned #}
     {% if not posts %}
-        <p class=blog-post-title h2>Nothing here :/</p>
-    {% endif %}
-    {% for post in posts %}
-            <div class="blog-post">
-                <a class="blog-post-title h2" href="{{ url_for('view.post', id = post.id) }}">{{ post.header }}</a>
-                <p class="blog-post-meta">{{ post.creation_date }} by {{ post.author }}</p>
-                {% for category in post.categories %}
-                <bdi class="blog-post-category">{{ category }}</bdi>
-                {% endfor %}
-                <p class="blog-post-content">
-                    {% for line in post.content.splitlines() %}
-                        {{ line }}<br>
+        <h2 class="card-title blog-post-title">Nothing here :/</h2>
+
+    {%- else -%}
+        {# Show posts #}
+        {%- for post in posts %}
+            <!-- Post -->
+            <div class="card card-body blog-post">
+                <!-- Post header -->
+                <div class="card-header blog-post-header">
+                    <a class="h2 card-title blog-post-title"
+                    href="{{ url_for('view.post', id = post.id) }}">{{ post.header }}</a>
+                    <p class="blog-post-meta">{{ post.creation_date }} by {{ post.author }}</p>
+
+                    {# Show categories #}
+                    {%- for category in post.categories %}
+                        <span class="badge badge-primary">{{ category }}</span>
                     {% endfor %}
+                </div>
+
+                <!-- Post content -->
+                <p class="card-text blog-post-content">
+                    {# Show post content #}
+                    {%- for line in post.content.splitlines() -%}
+                        {{ line }}<br>
+                    {%- endfor %}
                 </p>
             </div>
-            <hr>
-    {% endfor %}
-    <bdi>
-        <a
-        {% if first_last_posts.first_id != posts[-1].id %}
-            href="{{ url_for(request.endpoint, from_id=posts[-1].id - 1, id=request.view_args['id']) }}"
-        {% endif %}>
-            previous
-        </a> |
-        <a
-        {% if first_last_posts.last_id != posts[0].id %}
-            href="{{ url_for(request.endpoint, from_id=posts[0].id + 1, newer=True, id=request.view_args['id']) }}"
-        {% endif %}>
-            next
-        </a>
-    </bdi>
+        {% endfor -%}
+
+        <!-- Nav buttons -->
+        <!-- Previous -->
+        <a class="btn btn-outline-primary blog-btn
+        {# Dibable button if there's no previous posts #}
+        {% if first_last_posts.first_id == posts[-1].id %}
+            disabled
+        {% endif %}
+        " role="button"
+        href="{{ url_for(request.endpoint, from_id=posts[-1].id - 1,
+        id=request.view_args['id']) }}">Previous</a>
+
+        <!-- Next -->
+        <a class="btn btn-outline-primary blog-btn
+        {# Dibable button if there's no next posts #}
+        {% if first_last_posts.last_id == posts[0].id %}
+            disabled
+        {% endif %}
+        " role="button"
+        href="{{ url_for(request.endpoint, from_id=posts[0].id + 1, newer=True,
+        id=request.view_args['id']) }}">Next</a>
+        {%- endif %}
+
 {%- endmacro %}
