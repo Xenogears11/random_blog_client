@@ -1,7 +1,4 @@
-/*
- * Globals
- */
-
+/* For footer */
 html {
     height: 100%;
     box-sizing: border-box;
@@ -15,176 +12,130 @@ html {
 
 body {
     position: relative;
-    margin: 0;
-    padding-bottom: 5rem;
+    padding-top: 70px;
+    padding-bottom: 50px;
     min-height: 100%;
-    font-family: Georgia, "Times New Roman", Times, serif;
-    color: #555;
-    }
-
-
-h1, .h1,
-h2, .h2,
-h3, .h3,
-h4, .h4,
-h5, .h5,
-h6, .h6 {
-  margin-top: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: normal;
-  color: #333;
+    background-color: #edeef0;
 }
 
-
-/*
- * Override Bootstrap's default container.
- */
-
+/* Override container */
 @media (min-width: 1200px) {
-  .container {
-    width: 970px;
-  }
+    .container {
+        width : 970px;
+    }
 }
 
-
-/*
- * Masthead for nav
- */
-
-.blog-masthead {
-  background-color: #dcdcdc;
-  box-shadow: inset 0 -3px 5px rgba(0,0,0,.10);
-}
-
-/* Nav links */
-.blog-nav-item {
-  position: relative;
-  display: inline-block;
-  padding: 10px;
-  font-weight: 500;
-  color: #333;
-}
-.blog-nav-item:hover,
-.blog-nav-item:focus {
-  color: #fff;
-  text-decoration: none;
-}
-
-
-/* Active state gets a caret at the bottom */
-.blog-nav .active {
-  color: #fff;
-}
-.blog-nav .active:after {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 0;
-  margin-left: -5px;
-  vertical-align: middle;
-  content: " ";
-  border-right:  5px solid transparent;
-  border-bottom: 5px solid;
-  border-left:   5px solid transparent;
-}
-
-
-/*
- * Blog name and description
- */
-
+/* Header */
 .blog-header {
-  padding-top: 20px;
-  padding-bottom: 10px;
-  margin-bottom: 50px;
-  border-bottom: 1px solid #e5e5e5;
-  background-color: #f5f5f5;
+    padding-top: 20px;
+    margin-bottom: 50px;
 }
 .blog-title {
-  margin-top: 0;
-  margin-bottom: 0;
-  font-size: 60px;
-  font-weight: normal;
-}
-.blog-description {
-  font-size: 20px;
-  color: #999;
+    padding-top: 20px;
+    margin-bottom: 10px;
 }
 
-
-/*
- * Main column and sidebar layout
- */
-
-.blog-main {
-  font-size: 18px;
-  line-height: 1.5;
-}
-
-/* Sidebar modules for boxing content */
-.sidebar-module {
-  padding: 15px;
-  margin: 0 -15px 15px;
-}
-.sidebar-module-inset {
-  padding: 15px;
-  background-color: #f5f5f5;
-  border-radius: 4px;
-}
-.sidebar-module-inset p:last-child,
-.sidebar-module-inset ul:last-child,
-.sidebar-module-inset ol:last-child {
-  margin-bottom: 0;
-}
-
-/*
- * Blog posts
- */
-
+/* Post */
 .blog-post {
-  margin-bottom: 10px;
+    padding-top: 10px;
+    margin-bottom: 30px;
+}
+.blog-post-header {
+    padding-top: 0;
+    padding-bottom: 5px;
+    padding-left: 0;
 }
 .blog-post-title {
-  margin-bottom: 5px;
-  font-size: 40px;
+    margin-bottom: 0;
+    font-weight: normal;
 }
 .blog-post-title:hover,
 .blog-post-title:active {
   text-decoration: none;
 }
 .blog-post-meta {
-  margin-bottom: 0;
-  font-size: 1rem;
-  color: #999;
-}
-.blog-post-category {
-  background-color: #dcdcdc;
-  color: #555;
-  font-size: 15px;
-  margin-top: 0;
-}
-.blog-post-content {
-  margin-top: 15px;
-}
-.blog-post-line {
-    margin-top: 20px;
+    color: #999;
     margin-bottom: 0;
 }
-
-.blog-btn-submit {
+.blog-post-content {
+    padding-top: 10px;
+    padding-left: 10px;
+}
+/* Nav button */
+.blog-btn {
+    margin-bottom: 30px;
 }
 
-/*
- * Footer
- */
+/* Dropdown button with categories */
+.blog-btn-dropdown,
+.blog-btn-dropdown:focus {
+    background-color: #007bff;
+    color: white;
+}
+.blog-btn-dropdown.collapsed {
+    background-color: white;
+    color: #495057;
+}
+.blog-collapse {
+    width: 90%;
+    margin-top: 3px;
+}
+.blog-btn-category {
+    border-color: rgba(0,0,0,.15);
+    background-color: white;
+    color: #495057;
+}
+.blog-btn-category.focus {
+  box-shadow: none !important;
+}
+.blog-btn-category:hover {
+    background-color: white;
+    color: #495057;
+}
+.blog-btn-category.active:hover {
+    background-color: #007bff;
+}
+
+/* Sidebar */
+.blog-sidebar-module-main {
+    margin-bottom: 30px;
+    padding-top: 0;
+    padding-bottom: 10px;
+    text-align: center;
+}
+.blog-sidebar-module {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.blog-sidebar-btn {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 10px;
+    width: 80%;
+}
+.blog-sidebar-category {
+    border-radius: 0;
+    border-width: 3px;
+    border-style: none none none solid;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 5px;
+    width: 100%;
+    text-align: left;
+    color: black;
+}
+
+.blog-post-form {
+    margin-bottom: 10px;
+}
+
+/* Footer */
 .blog-footer {
     position: absolute;
     width: 100%;
     bottom: 0;
-    padding-top: 10px;
-    color: #999;
     text-align: center;
-    background-color: #f5f5f5;
-    border-top: 1px solid #e5e5e5;
+    color: #fff;
+    padding-top: 10px;
+    background-color: #007bff;
 }

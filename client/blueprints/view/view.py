@@ -17,7 +17,7 @@ def home():
     newer = request.args.get('newer')
     data = blog.get_home(quantity, from_id, newer)
     try:
-        return render_template('pages/home.html', data = data)
+         return render_template('pages/home.html', data = data)
     except:
         abort(404)
 
@@ -37,7 +37,7 @@ def new_post():
                       request.form['header'],
                       request.form['content'],
                       request.form['author'],
-                      request.form['category'])
+                      request.form.getlist('categories'))
             return redirect(url_for('view.post', id = post_id))
         except:
             abort(400)
@@ -64,7 +64,7 @@ def edit_post(id):
              request.form['header'],
              request.form['content'],
              request.form['author'],
-             request.form['category'])
+             request.form.getlist('categories'))
         try:
             return redirect(url_for('view.post', id = id))
         except:
@@ -102,10 +102,10 @@ def category(id):
     newer = request.args.get('newer')
 
     data = blog.get_category(id, quantity, from_id, newer)
-    #try:
-    return render_template('pages/category.html', data = data)
-    #except:
-        #abort(404)
+    try:
+        return render_template('pages/category.html', data = data)
+    except:
+        abort(404)
 
 @view.route('/categories')
 def categories():

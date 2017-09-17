@@ -1,18 +1,19 @@
-{% extends 'modules/base.html' %}
+{% extends 'modules/base.html' -%}
 
-{% block title %}Home{% endblock %}
+{%- block title %}Home{% endblock -%}
 
-{% block header %}
-    <h1 class="blog-title">Random blog</h1>
-    <p class="lead blog-description">Some random blog</p>
-{% endblock header %}
+{%- block header %}
+    <div class="blog-header">
+        <h1 class="display-3">Recent posts</h1>
+    </div>
+{% endblock header -%}
 
-{% block main %}
+{%- block main %}
     {% from 'modules/posts.html' import show_posts %}
     {{ show_posts(data.posts, data.first_last_posts) }}
-{% endblock main %}
+{% endblock main -%}
 
-{% block sidebar %}
+{%- block sidebar %}
     {% from 'modules/sidebar.html' import show_sidebar %}
     {{ show_sidebar(data.categories) }}
-{% endblock sidebar %}
+{% endblock sidebar -%}
