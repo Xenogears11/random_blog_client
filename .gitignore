@@ -45,8 +45,17 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Custom
 __pycache__
 api_url.txt
 client/start.bat
 run.bat
 run prod.bat
+
+# Venv
+bin/
+include/
+lib/
+share/
+pyvenv.cfg
