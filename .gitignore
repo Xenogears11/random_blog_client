@@ -49,3 +49,4 @@ __pycache__
 api_url.txt
 client/start.bat
 run.bat
+run prod.bat

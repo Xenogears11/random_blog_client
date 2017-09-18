@@ -1,15 +1,13 @@
 {% extends 'modules/base.html' %}
 
-{% block header %}
-    <div class="blog-header blog-main">
-        <h1 class="blog-title">{% block header_text %}{% endblock %}</h1>
+{%- block header %}
+    <div class="blog-header">
+        <h1 class="display-3 text-center">{% block header_text %}{% endblock %}</h1>
     </div>
-{% endblock header %}
+{% endblock header -%}
 
-{% block content %}
-    <div class="blog-post blog-main">
-        <div class="blog-post-content">
-            {% block content_text %}{% endblock %}
-        </div>
+{%- block content %}
+    <div class="container text-center">
+        {% block content_text %}{% endblock %}
     </div>
-{% endblock content %}
+{% endblock content -%}

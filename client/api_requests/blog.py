@@ -18,16 +18,30 @@ class Blog():
         except:
             return None
 
-    def get_home(self):
+    def get_home(self, quantity, from_id = None, newer = None):
+        req = {
+            'quantity':quantity,
+            'from_id':from_id
+        }
+        if newer != None:
+            req['newer'] = 'true'
+
         try:
-            data = get('{url}/blog/home'.format(url = self.api_url))
+            data = get('{url}/blog/home'.format(url = self.api_url), data = req)
             return data.json()
         except:
             return None
 
-    def get_category(self, id):
+    def get_category(self, id, quantity, from_id = None, newer = None):
+        req = {
+            'quantity':quantity,
+            'from_id':from_id
+        }
+        if newer != None:
+            req['newer'] = 'true'
+
         try:
-            data = get('{url}/blog/category/{id}'.format(url = self.api_url, id = id))
+            data = get('{url}/blog/category/{id}'.format(url = self.api_url, id = id), data = req)
             return data.json()
         except:
             return None
