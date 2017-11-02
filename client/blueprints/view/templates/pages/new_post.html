@@ -2,6 +2,12 @@
 
 {% block title %}New post{% endblock %}
 
+{% block style %}
+    {{ super() }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+{% endblock style %}
+
 {% block header %}
     <div class="blog-header">
         <h1 class="display-3">Create post</h1>
@@ -14,3 +20,13 @@
         {{ show_post_form(data, empty = True) }}
     </form>
 {% endblock content %}
+
+{% block script %}
+    {{ super() }}
+    <script>
+        var simplemde = new SimpleMDE({
+                element: document.getElementById("form_content") ,
+                forceSync: true
+        });;
+    </script>
+{% endblock script %}

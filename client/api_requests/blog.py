@@ -1,8 +1,11 @@
 from requests import get, post, delete, put, codes
 import sys
+import mistune
 
 class Blog():
     api_url = None
+    renderer = mistune.Renderer(hard_wrap = True)
+    markdown = mistune.Markdown(renderer = renderer)
 
     def __init__(self, url_file):
             #get api_url
@@ -14,7 +17,10 @@ class Blog():
     def get_post(self, id):
         try:
             data = get('{url}/posts/{id}'.format(url = self.api_url, id = id))
-            return data.json()
+            data = data.json()
+            data['content'] = self.markdown(data['content'])
+            print(data['content'])
+            return data
         except:
             return None
 
@@ -28,7 +34,10 @@ class Blog():
 
         try:
             data = get('{url}/blog/home'.format(url = self.api_url), data = req)
-            return data.json()
+            data = data.json()
+            for post in data['posts']:
+                post['content'] = self.markdown(post['content'])
+            return data
         except:
             return None
 
@@ -42,7 +51,10 @@ class Blog():
 
         try:
             data = get('{url}/blog/category/{id}'.format(url = self.api_url, id = id), data = req)
-            return data.json()
+            data = data.json()
+            for post in data['posts']:
+                post['content'] = self.markdown(post['content'])
+            return data
         except:
             return None
 
