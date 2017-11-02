@@ -19,7 +19,6 @@ class Blog():
             data = get('{url}/posts/{id}'.format(url = self.api_url, id = id))
             data = data.json()
             data['content'] = self.markdown(data['content'])
-            print(data['content'])
             return data
         except:
             return None
