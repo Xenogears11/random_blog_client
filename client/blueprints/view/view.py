@@ -2,9 +2,11 @@ from flask import Blueprint, render_template, redirect, abort, url_for, request
 from jinja2 import TemplateNotFound
 from api_requests.blog import Blog
 import sys
+import mistune
 
 view = Blueprint('view', __name__, template_folder = 'templates')
 blog = Blog('api_url.txt')
+markdown = mistune.Markdown()
 
 @view.route('/')
 def main():
@@ -45,10 +47,10 @@ def new_post():
 @view.route('/post/<int:id>')
 def post(id):
     data = blog.get_post(id)
-    try:
-        return render_template('pages/post.html', data = data)
-    except:
-        abort(404)
+    #try:
+    return render_template('pages/post.html', data = data)
+    #except:
+        #abort(404)
 
 @view.route('/post/<int:id>/edit', methods=['GET', 'POST'])
 def edit_post(id):

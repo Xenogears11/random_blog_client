@@ -18,6 +18,10 @@ body {
     background-color: #edeef0;
 }
 
+img {
+    max-width: 100%;
+}
+
 /* Override container */
 @media (min-width: 1200px) {
     .container {
@@ -39,6 +43,7 @@ body {
 .blog-post {
     padding-top: 10px;
     margin-bottom: 30px;
+    word-wrap: break-word;
 }
 .blog-post-header {
     padding-top: 0;

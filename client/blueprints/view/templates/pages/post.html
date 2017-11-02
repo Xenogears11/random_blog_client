@@ -16,12 +16,10 @@
 
 {%- block main %}
     <div class="blog-post">
-        <p class="card-text blog-post-content">
+        <div class="card-text blog-post-content">
             {# Show post content #}
-            {%- for line in data.content.splitlines() -%}
-                {{ line }}<br>
-            {%- endfor -%}
-        </p>
+            {{ data.content|safe }}
+        </div>
 
         {# Show last updated... #}
         {%- if data.modification_date != None %}
