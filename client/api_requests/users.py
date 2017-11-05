@@ -1,4 +1,4 @@
-from requests import post, get
+from requests import post, get, codes
 
 class Users():
     api_url = None
@@ -10,11 +10,14 @@ class Users():
 
             self.api_url = line.rstrip()
 
-    def get_username(self, id):
+    def get_user(self, id):
         try:
             response = get('{url}/users/{id}'.format(url = self.api_url, id = id))
             response = response.json()
-            return response['username']
+            return {
+                'username' : response['username'],
+                'is_admin' : response['is_admin']
+                }
         except:
             return None
 
@@ -29,9 +32,24 @@ class Users():
             response = response.json()
 
             if response['validated'] == True:
-                print(response['validated'])
                 return response['user_id']
             else:
                 return None
         except:
             return None
+
+    def create(self, username, password):
+        data = {
+            'username' : username,
+            'password' : password
+        }
+
+        try:
+            response = post('{url}/users'.format(url = self.api_url), data = data)
+
+            if response.status_code == codes.ok:
+                return True
+            else:
+                return False
+        except:
+            return False

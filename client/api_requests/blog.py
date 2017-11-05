@@ -71,11 +71,11 @@ class Blog():
         except:
             return None
 
-    def new_post(self, header, content, author, categories):
+    def new_post(self, header, content, author_id, categories):
         data = {
             'header' : header,
             'content' : content,
-            'author' : author,
+            'author_id' : author_id,
             'categories' : [categories]
         }
 
@@ -98,11 +98,10 @@ class Blog():
         except:
             return False
 
-    def edit_post(self, id, header, content, author, categories):
+    def edit_post(self, id, header, content, categories):
         data = {
             'header' : header,
             'content' : content,
-            'author' : author,
             'categories' : [categories]
         }
         try:

@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, redirect, abort, url_for, request
 from jinja2 import TemplateNotFound
 from api_requests.blog import Blog
+from flask_login import login_required, current_user
 import sys
 import mistune
 
@@ -24,6 +25,7 @@ def home():
         abort(404)
 
 @view.route('/post/new', methods=['POST', 'GET'])
+@login_required
 def new_post():
     data = None
     if request.method == 'GET':
@@ -38,7 +40,7 @@ def new_post():
             post_id = blog.new_post(
                       request.form['header'],
                       request.form['content'],
-                      request.form['author'],
+                      current_user.id,
                       request.form.getlist('categories'))
             return redirect(url_for('view.post', id = post_id))
         except:
@@ -53,9 +55,13 @@ def post(id):
         #abort(404)
 
 @view.route('/post/<int:id>/edit', methods=['GET', 'POST'])
+@login_required
 def edit_post(id):
     if request.method == 'GET':
         data = blog.get_edit_page(id)
+        if not (current_user.is_admin or int(current_user.id) == int(data['post']['author_id'])):
+            abort(403)
+
         try:
             return render_template('pages/edit_post.html', data = data)
         except:
@@ -65,7 +71,6 @@ def edit_post(id):
         id = blog.edit_post(id,
              request.form['header'],
              request.form['content'],
-             request.form['author'],
              request.form.getlist('categories'))
         try:
             return redirect(url_for('view.post', id = id))
@@ -73,6 +78,7 @@ def edit_post(id):
             abort(404)
 
 @view.route('/post/<int:id>/delete')
+@login_required
 def delete_post(id):
     response = blog.delete_post(id)
 
@@ -86,6 +92,7 @@ def delete_post(id):
         abort(404)
 
 @view.route('/post/<int:id>/restore')
+@login_required
 def restore_post(id):
     post_id = blog.restore_post(id)
     if post_id != None:
@@ -133,7 +140,3 @@ def soon():
 @view.route('/memes')
 def memes():
     return render_template('pages/memes.html')
-
-@view.errorhandler(404)
-def page_not_found(e):
-    return render_template('error_pages/404.html')

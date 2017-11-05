@@ -1,0 +1,9 @@
+{% extends 'modules/simple_page.html' %}
+
+{% block title %}Unauthorized{% endblock %}
+
+{% block header_text %}401 : Unauthorized{% endblock %}
+
+{% block content_text %}
+    <p>Wrong username or password. <a href="{{ url_for('auth.login') }}">Try again?</a></p>
+{% endblock content_text %}
