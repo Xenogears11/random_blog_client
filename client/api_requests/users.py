@@ -1,4 +1,8 @@
 from requests import post, get, codes
+from flask_login import current_user
+from flask import abort
+from functools import wraps
+from api_requests.blog import Blog
 
 class Users():
     api_url = None
@@ -53,3 +57,16 @@ class Users():
                 return False
         except:
             return False
+
+blog = Blog('api_url.txt')
+
+def access_check(func):
+    @wraps(func)
+    def wrapper(id, *args, **kwargs):
+        author_id = blog.get_author(id)
+        if current_user.is_admin or int(current_user.id) == int(author_id):
+            return func(id, *args, **kwargs)
+        else:
+            abort(403)
+
+    return wrapper

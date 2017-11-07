@@ -126,3 +126,12 @@ class Blog():
 
         except:
             return None
+
+    def get_author(self, id):
+        try:
+            response = get('{url}/posts/{id}/author'.format(url = self.api_url, id = id))
+
+            response = response.json()
+            return response['author_id']
+        except:
+            return None

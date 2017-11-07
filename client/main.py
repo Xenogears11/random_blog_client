@@ -11,11 +11,13 @@ app = Flask(__name__)
 app.register_blueprint(view)
 app.register_blueprint(auth)
 app.register_blueprint(error)
-app.config.update(
-    DEBUG = True,
-    SECRET_KEY = 'secret_xxx'
-)
 
-#login manager
+#Login manager
+with open('secret.txt', 'r', encoding = 'utf-8') as file:
+    line = file.read()
+secret = line.rstrip()
+app.config.update(
+    SECRET_KEY = secret
+)
 login_manager.init_app(app)
 login_manager.login_view = 'auth.login'

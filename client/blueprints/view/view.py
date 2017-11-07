@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, redirect, abort, url_for, request
 from jinja2 import TemplateNotFound
 from api_requests.blog import Blog
+from api_requests.users import access_check
 from flask_login import login_required, current_user
 import sys
 import mistune
@@ -56,11 +57,10 @@ def post(id):
 
 @view.route('/post/<int:id>/edit', methods=['GET', 'POST'])
 @login_required
+@access_check
 def edit_post(id):
     if request.method == 'GET':
         data = blog.get_edit_page(id)
-        if not (current_user.is_admin or int(current_user.id) == int(data['post']['author_id'])):
-            abort(403)
 
         try:
             return render_template('pages/edit_post.html', data = data)
@@ -79,6 +79,7 @@ def edit_post(id):
 
 @view.route('/post/<int:id>/delete')
 @login_required
+@access_check
 def delete_post(id):
     response = blog.delete_post(id)
 
@@ -93,6 +94,7 @@ def delete_post(id):
 
 @view.route('/post/<int:id>/restore')
 @login_required
+@access_check
 def restore_post(id):
     post_id = blog.restore_post(id)
     if post_id != None:
