@@ -33,14 +33,13 @@
         <!-- Control buttons -->
         <h4 class="card-header">Options</h4>
         <ul class="list-unstyled">
+            {% set btn_disable = True %}
             {% if current_user.is_authenticated %}
                 {% if current_user.is_admin or data.author_id|int == current_user.id|int %}
                     {% set btn_disable = False %}
                 {% endif %}
-            {% else %}
-                {% set btn_disable = True %}
             {% endif %}
-            <li>
+
                 <a class="btn btn-outline-primary blog-sidebar-btn
                 {% if btn_disable %}
                     disabled
