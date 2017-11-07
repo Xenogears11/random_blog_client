@@ -25,9 +25,9 @@
     {{ super() }}
     <script>
         var simplemde = new SimpleMDE({
-                element: document.getElementById("form_content") ,
-                forceSync: true,
-                placeholder: "Type your post here..."
+                element: document.getElementById("form_content"),
+                placeholder: "Type your post here...",
+                forceSync: true            
         });;
     </script>
 {% endblock script %}

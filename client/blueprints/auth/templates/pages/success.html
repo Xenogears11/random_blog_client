@@ -1,0 +1,10 @@
+{% extends 'modules/simple_page.html' %}
+
+{% block title %}Success{% endblock %}
+
+{% block header_text %}Success!{% endblock %}
+
+{% block content_text %}
+    <p>You've successfully created your account!</p>
+    <p>Now you can <a href="{{ url_for('auth.login') }}">log in.</a></p>
+{% endblock content_text %}

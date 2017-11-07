@@ -1,0 +1,30 @@
+{% extends "modules/base.html" %}
+
+{% block header %}
+    <div class="blog-header">
+        <h1 class="display-3 text-center">New account</h1>
+    </div>
+{% endblock header %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-3">
+            <form action="{{ url_for('auth.register') }}" method="POST">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input class="form-control" type="text" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input class="form-control" type="password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="repeat_password">Repeat password</label>
+                    <input class="form-control" type="password" name="repeat_password" required>
+                </div>
+                <button type="submit" class="btn btn-outline-success btn-block blog-btn">Create</button>
+            </form>
+        </div>
+        <p>Please do not use your real passwords because I have no access to database and of course I'll never see them.</p>
+    </div>
+{% endblock content %}
