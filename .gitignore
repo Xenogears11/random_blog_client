@@ -59,5 +59,9 @@ include/
 lib/
 share/
 pyvenv.cfg
+<<<<<<< HEAD
 run global.bat
 run local.bat
+=======
+client/secret.txt
+>>>>>>> refs/heads/dev
