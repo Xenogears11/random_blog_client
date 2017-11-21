@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, abort, url_for, request
+from flask import Blueprint, render_template, redirect, abort, url_for, request, flash
 from api_requests import blog
 from flask_login import login_required, current_user
 import mistune
@@ -41,6 +41,7 @@ def new_post():
                 request.form['content'],
                 current_user.id,
                 request.form.getlist('categories'))
+            flash('Your post has been created!')
             return redirect(url_for('view.post', id=post_id))
         except:
             abort(400)
@@ -73,6 +74,7 @@ def edit_post(id):
                             request.form['content'],
                             request.form.getlist('categories'))
         try:
+            flash('Your post has been edited!')
             return redirect(url_for('view.post', id=id))
         except:
             abort(404)
@@ -101,6 +103,7 @@ def restore_post(id):
     post_id = blog.restore_post(id)
     if post_id != None:
         try:
+            flash('Your post has been restored!')
             return redirect(url_for('view.post', id=post_id))
         except:
             return abort(404)
@@ -141,6 +144,7 @@ def about():
 @view.route('/soon')
 def soon():
     try:
+        flash('(or not, lol)')
         return render_template('pages/soon.html')
     except:
         abort(404)

@@ -1,3 +1,5 @@
+//Initialize text editor
+
 var simplemde = new SimpleMDE({
                 element: document.getElementById("form_content"),
                 placeholder: "Type your post here...",

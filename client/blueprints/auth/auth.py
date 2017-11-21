@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, request
+from flask import Blueprint, render_template, redirect, url_for, request, flash
 from api_requests import users
 from blueprints.auth.user import User
 from flask_login import login_user, logout_user, login_required
@@ -26,6 +26,7 @@ def login():
             user = User(id)
             login_user(user, remember=remember)
             next_url = request.args.get('next')
+            flash('Logged in.')
             return redirect(next_url or url_for('view.home'))
         else:
             err = {'username': username}
@@ -36,6 +37,7 @@ def login():
 @login_required
 def logout():
     logout_user()
+    flash('Logged out.')
     return redirect(url_for('auth.login'))
 
 
