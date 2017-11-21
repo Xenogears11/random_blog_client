@@ -18,7 +18,7 @@
 
         <!-- Navbar -->
         {% block navbar %}
-            <div>
+            <div class = navbar-wrapper>
                 <nav class="navbar navbar-expand-sm navbar-dark bg-primary fixed-top">
                     <!-- Logo -->
                     <a class="navbar-brand" href="{{ url_for('view.home') }}">Random blog</a>
@@ -75,35 +75,36 @@
             </div>
         {% endblock navbar %}
 
-        <!-- Header -->
-        <div class="container">
-            {% block header %}{% endblock %}
-        </div>
+        <div class="wrapper" id="wrapper">
+            <!-- Header -->
+            <div class="container">
+                {% block header %}{% endblock %}
+            </div>
 
-        <!-- Content -->
-        <div class="container">
-            {% block content %}
-                <div class="row">
-                    <!-- Main -->
-                    <div class="col-md-7">
-                        {% block main %}{% endblock %}
+            <!-- Content -->
+            <div class="container">
+                {% block content %}
+                    <div class="row">
+                        <!-- Main -->
+                        <div class="col-md-7">
+                            {% block main %}{% endblock %}
+                        </div>
+
+                        <!-- Empty column -->
+                        <div class="col-md-1"></div>
+
+                        <!-- Sidebar -->
+                        <div class="col-md-3">
+                            {% block sidebar %}{% endblock %}
+                        </div>
                     </div>
-
-                    <!-- Empty column -->
-                    <div class="col-md-1"></div>
-
-                    <!-- Sidebar -->
-                    <div class="col-md-3">
-                        {% block sidebar %}{% endblock %}
-                    </div>
-                </div>
-            {% endblock content %}
+                {% endblock content %}
+            </div>
         </div>
-
         <!-- Footer -->
-        <footer class="blog-footer">
+        <footer class="footer blog-footer">
             {% block footer %}
-                <p>The end</p>
+                <span>The end</span>
             {% endblock footer %}
         </footer>
 
@@ -116,6 +117,14 @@
 
             <!-- Bootstrap JavaScript -->
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
+            {% set messages = get_flashed_messages() %}
+            {% if messages %}
+                <!-- Alerts -->
+                <script src="{{ url_for('static', filename='alerts.js') }}"
+                        id = "alerts" data-msg="{{ messages[0]|safe }}"></script>
+            {% endif %}
+
         {% endblock script %}
     </body>
 </html>

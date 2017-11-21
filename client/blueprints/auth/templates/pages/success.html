@@ -5,6 +5,8 @@
 {% block header_text %}Success!{% endblock %}
 
 {% block content_text %}
-    <p>You've successfully created your account!</p>
-    <p>Now you can <a href="{{ url_for('auth.login') }}">log in.</a></p>
+    <div>
+        You've successfully created your account!
+        Now you can <a href="{{ url_for('auth.login') }}">log in.</a>
+    </div>
 {% endblock content_text %}

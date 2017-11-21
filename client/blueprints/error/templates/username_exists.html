@@ -1,9 +1,0 @@
-{% extends 'modules/simple_page.html' %}
-
-{% block title %}Error{% endblock %}
-
-{% block header_text %}Error{% endblock %}
-
-{% block content_text %}
-    <p>Maybe this username is already registered. <a href="{{ url_for('auth.register') }}">Try again.</a></p>
-{% endblock content_text %}

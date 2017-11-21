@@ -9,25 +9,42 @@
 {% block content %}
     <div class="row justify-content-center">
         <div class="col-md-3">
-            <form action="{{ url_for('auth.login') }}" method="POST">
+            <form action="{{ request.url }}" method="POST">
+                {# username #}
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input class="form-control" type="text" name="username" required>
+                    <input class="form-control" type="text" name="username" required
+                        {%- if err != None %}
+                           value="{{ err.username }}"
+                        {% endif -%}>
                 </div>
+
+                {# password #}
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input class="form-control" type="password" name="password" required>
+                    {% if err == None %}
+                            <label for="password">Password</label>
+                            <input class="form-control" type="password" name="password" required>
+                    {% else %}
+                            <label for="password">Password</label>
+                            <input class="form-control is-invalid" type="password"
+                                   name="password" required>
+                            <div class="invalid-feedback text-center">
+                                Invalid username or password.
+                            </div>
+                    {% endif %}
                 </div>
+                {# checkbox #}
                 <div class="form-group">
                     <label class="form-check-label">
                         <input class="form-check-input" type="checkbox" name="remember">
                         Remember me
                     </label>
                 </div>
+                {# submit #}
                 <button type="submit" class="btn btn-outline-primary btn-block blog-btn">Log in</button>
             </form>
         </div>
     </div>
     <br>
-    <p class="text-center"> Don't have an account? <a href="{{ url_for('auth.register') }}">Register!</a></p>
+    <div class="text-center"> Don't have an account? <a href="{{ url_for('auth.register') }}">Register!</a></div>
 {% endblock content %}
