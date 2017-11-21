@@ -25,7 +25,8 @@ def login():
         if id is not None:
             user = User(id)
             login_user(user, remember=remember)
-            return redirect(url_for('view.home'))
+            next_url = request.args.get('next')
+            return redirect(next_url or url_for('view.home'))
         else:
             err = {'username': username}
             return render_template('pages/login.html', err=err)
