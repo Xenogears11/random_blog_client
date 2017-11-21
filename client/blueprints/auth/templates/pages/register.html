@@ -10,21 +10,53 @@
     <div class="row justify-content-center">
         <div class="col-md-3">
             <form action="{{ url_for('auth.register') }}" method="POST">
+                {# username #}
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input class="form-control" type="text" name="username" required>
+                    {% if err == None %}
+                        <input class="form-control" type="text" name="username" required>
+
+                    {% elif err.err == 'username' %}
+                        <input class="form-control is-invalid" type="text" value="{{ err.username }}"
+                               name="username" required>
+                        <div class="invalid-feedback">
+                            User with this name already exists.
+                        </div>
+
+                    {% else %}
+                        <input class="form-control" type="text" value="{{ err.username }}"
+                               name="username" required>
+                    {% endif -%}
                 </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input class="form-control" type="password" name="password" required>
-                </div>
-                <div class="form-group">
-                    <label for="repeat_password">Repeat password</label>
-                    <input class="form-control" type="password" name="repeat_password" required>
-                </div>
+
+                {# password #}
+                {% if err != None and err.err == 'password' %}
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input class="form-control is-invalid" type="password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="repeat_password">Repeat password</label>
+                        <input class="form-control is-invalid" type="password" name="repeat_password" required>
+                        <div class="invalid-feedback">
+                            Passwords do not match.
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input class="form-control" type="password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="repeat_password">Repeat password</label>
+                        <input class="form-control" type="password" name="repeat_password" required>
+                    </div>
+                {% endif %}
+                {# submit #}
                 <button type="submit" class="btn btn-outline-success btn-block blog-btn">Create</button>
             </form>
         </div>
-        <p>Please do not use your real passwords because I have no access to database and of course I'll never see them.</p>
+        <p class="text-center">Please do not use your real passwords because I have no access to the database
+            and of course I'll never see them.</p>
     </div>
 {% endblock content %}

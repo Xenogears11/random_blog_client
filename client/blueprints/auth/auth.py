@@ -1,16 +1,15 @@
-from flask import Blueprint, render_template, redirect, abort, url_for, request
-from jinja2 import TemplateNotFound
-from api_requests.users import Users
+from flask import Blueprint, render_template, redirect, url_for, request
+from api_requests import users
 from blueprints.auth.user import User
 from flask_login import login_user, logout_user, login_required
 
-auth = Blueprint('auth', __name__, template_folder = 'templates')
-users = Users('api_url.txt')
+auth = Blueprint('auth', __name__, template_folder='templates')
 
-@auth.route('/login', methods = ['POST', 'GET'])
+
+@auth.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'GET':
-        return render_template('pages/login.html')
+        return render_template('pages/login.html', err=None)
 
     else:
         username = request.form['username']
@@ -23,32 +22,39 @@ def login():
 
         id = users.validate(username, password)
 
-        if id != None:
+        if id is not None:
             user = User(id)
-            login_user(user, remember = remember)
+            login_user(user, remember=remember)
             return redirect(url_for('view.home'))
         else:
-            return abort(401)
+            err = {'username': username}
+            return render_template('pages/login.html', err=err)
+
 
 @auth.route('/logout')
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('view.home'))
+    return redirect(url_for('auth.login'))
 
-@auth.route('/register', methods = ['POST', 'GET'])
+
+@auth.route('/register', methods=['POST', 'GET'])
 def register():
     if request.method == 'GET':
-        return render_template('pages/register.html')
+        return render_template('pages/register.html', err=None)
     else:
         username = request.form['username']
         password = request.form['password']
         repeat_password = request.form['repeat_password']
 
+        err = {'username': username}
+
         if password != repeat_password:
-            return render_template('passwords_not_match.html')
+            err['err'] = 'password'
+            return render_template('pages/register.html', err=err)
         else:
             if users.create(username, password):
                 return render_template('pages/success.html')
             else:
-                return render_template('username_exists.html')
+                err['err'] = 'username'
+                return render_template('pages/register.html', err=err)

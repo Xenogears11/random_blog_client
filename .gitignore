@@ -65,3 +65,5 @@ run local.bat
 =======
 client/secret.txt
 >>>>>>> refs/heads/dev
+
+\.idea/

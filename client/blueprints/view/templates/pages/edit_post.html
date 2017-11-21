@@ -23,11 +23,5 @@
 
 {% block script %}
     {{ super() }}
-    <script>
-        var simplemde = new SimpleMDE({
-                element: document.getElementById("form_content"),
-                placeholder: "Type your post here...",
-                forceSync: true
-        });;
-    </script>
+    <script src="{{ url_for('static', filename = 'simplemde.js') }}"></script>
 {% endblock script %}
